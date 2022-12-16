@@ -1,2 +1,1 @@
 # gratisaviser.github.io
-# NIGGA
