@@ -1,0 +1,142 @@
+.wrapper-amedia-user {
+  box-sizing: content-box;
+  background: #1e282d;
+  border-bottom: 1px solid #1e282d;
+  display: flex;
+  justify-content: space-around;
+  color: var(--swatchMono-white, #fff);
+  position: relative;
+  overflow: hidden;
+  z-index: 1000;
+  /* Render amedia-user above aid-overla */
+}
+
+.wrapper-amedia-user.light {
+  background: var(--swatchMono-white);
+  border-bottom: 1px solid var(--swatchMono-gray6);
+  color: #1e282d;
+}
+
+.wrapper-amedia-user a {
+  color: var(--swatchMono-white, #fff);
+}
+
+.wrapper-amedia-user.light a {
+  color: #1e282d;
+}
+
+amedia-user {
+  box-sizing: border-box;
+  display: block;
+  font-family: var(--openSans), sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: flex-end;
+  padding: 5px 38px 5px 12px;
+  position: relative;
+  min-height: 24px;
+  line-height: 14px;
+  max-width: 980px;
+}
+
+@media screen and (min-width: 1024px) {
+  amedia-user {
+    padding-right: 26px;
+  }
+}
+
+@media screen and (max-width: 532px) {
+  amedia-user {
+    justify-content: space-between;
+  }
+}
+
+@keyframes user-loading {
+  0% {
+    left: -20vw;
+    width: 30vw;
+  }
+
+  50% {
+    width: 30vw;
+  }
+
+  70% {
+    width: 70vw;
+  }
+
+  80% {
+    left: 50vw;
+  }
+
+  100% {
+    left: 100vw;
+  }
+}
+
+amedia-user::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -20vw;
+  content: '';
+  width: 20vw;
+  background-image: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.1) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: user-loading 2s linear infinite;
+}
+
+.wrapper-amedia-user.light amedia-user::before {
+  top: auto;
+  bottom: -1px;
+  height: 2px;
+  background-image: none;
+  background-color: var(--swatchMono-gray5);
+}
+
+amedia-user.loaded::before {
+  display: none;
+  animation: none;
+}
+
+amedia-user .aid-logo {
+  display: block !important;
+  height: 14px;
+  width: 26px;
+  position: absolute;
+  right: 12px;
+  top: 5px;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 1024px) {
+  amedia-user .aid-logo {
+    right: 0;
+  }
+}
+
+amedia-user .aid-logo .logo-id {
+  fill: var(--swatchMono-white);
+  stroke-width: 0;
+}
+
+.wrapper-amedia-user.light amedia-user .aid-logo .logo-id {
+  fill: #1e282d;
+}
+
+amedia-user .aid-logo .logo-a {
+  fill: #ec008b;
+  stroke-width: 0;
+}
+
+.emergency-mode {
+  margin-right: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}

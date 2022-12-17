@@ -1,0 +1,48 @@
+function addRipple(button, e) {
+  const width = button.offsetWidth;
+  const pos = button.getBoundingClientRect();
+  const rippleElement = document.createElement('span');
+  rippleElement.classList.add('amedia-button-ripple');
+  const left = e.clientX - pos.left;
+  const top = e.clientY - pos.top;
+  const size = Math.max(width - left, left) * 2;
+  rippleElement.style.top = "".concat(top - size / 2, "px");
+  rippleElement.style.left = "".concat(left - size / 2, "px");
+  rippleElement.style.width = "".concat(size, "px");
+  rippleElement.style.height = "".concat(size, "px");
+  button.appendChild(rippleElement);
+  setTimeout(() => button.removeChild(rippleElement), 1000);
+}
+let stylesAdded = false;
+function addStyles() {
+  if (stylesAdded === true) {
+    return;
+  }
+  stylesAdded = true;
+  document.head.insertAdjacentHTML('beforeend', "\n  <style>\n      .amedia-button-ripple {\n          background: #fff;\n          border-radius: 100%;\n          position: absolute;\n          z-index: 1;\n          transform: scale(0);\n          animation: amedia-ripple 1000ms;\n          opacity: .75;\n      }\n\n      @keyframes amedia-ripple {\n          to {\n              opacity: 0;\n              transform: scale(1);\n          }\n      })\n      </style>");
+}
+class PrivacyButton extends HTMLElement {
+  init() {
+    if (this.connected) {
+      return;
+    }
+    this.connected = true;
+    addStyles();
+    this.addEventListener('mousedown', e => addRipple(this, e));
+    const text = this.textContent;
+    this.innerHTML = "<button>".concat(text, "</button>");
+    this.addEventListener('mousedown', () => {
+      window.dispatchEvent(new CustomEvent('privacy-box-button-clicked'));
+    });
+  }
+  connectedCallback() {
+    this.init();
+  }
+}
+if (customElements && customElements.define) {
+  customElements.define('amedia-privacybox-button', PrivacyButton);
+} else {
+  document.registerElement('amedia-privacybox-button', {
+    prototype: PrivacyButton.prototype
+  });
+}

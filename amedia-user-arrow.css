@@ -1,0 +1,17 @@
+amedia-user-arrow svg {
+  margin: 0 10px;
+  height: 11px;
+  width: 12px;
+  vertical-align: bottom;
+}
+
+amedia-user-arrow path {
+  stroke-width: 2px;
+  fill: none;
+  stroke: var(--swatchMono-white);
+  stroke-linecap: butt;
+}
+
+amedia-user-arrow.light path {
+  stroke: #1e282d;
+}

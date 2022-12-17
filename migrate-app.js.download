@@ -1,0 +1,9 @@
+var n=Object.defineProperty;var e=(a,i)=>n(a,"name",{value:i,configurable:!0});import{BrickButton as s}from"https://assets.acdn.no/pkg/@amedia/brick-button/v5/brick-button.js";function r(){return!1}e(r,"showModal");var t=class extends HTMLElement{constructor(){super(),this.iosAppId=this.getAttribute("iosAppId"),this.androidAppId=this.getAttribute("androidAppId"),this.downloadButtonLabel=this.getAttribute("label"),this.newspaperColor=window.getComputedStyle(document.documentElement).getPropertyValue("--newspaper-color")}link(){return navigator.userAgent.indexOf("iPhone")>-1?`https://apps.apple.com/app/${this.iosAppId}`:`https://play.google.com/store/apps/details?id=${this.androidAppId}`}label(){return`Denne appen er utdatert. Du m\xE5 laste ned appen p\xE5 nytt fra ${navigator.userAgent.indexOf("iPhone")>-1?"App Store":"Google Play"}`}connectedCallback(){r()||this.hasAttribute("test")?(document.querySelector("body").style.overflow="hidden",this.innerHTML=this.template):this.remove()}get template(){return`
+    <div class="migrate-app-wrapper lp_migrate_app adp-inscreen" data-adp-inscreen-name="migrate-app">
+    <div class="migrate-app-content">
+    <p class="migrate-app-label">${this.label()}</p>
+    <brick-button data-version="primary" data-theme="Nettavisen" data-label="Last ned" data-bgcolor="${this.newspaperColor}" data-linkto="${this.link()}"></brick-button>
+    </div>
+    </div>
+    `}};e(t,"AmediaMigrateApp");customElements.get("amedia-migrate-app")||customElements.define("amedia-migrate-app",t);customElements.get("brick-button")||customElements.define("brick-button",s);
+//# sourceMappingURL=migrate-app.js.map

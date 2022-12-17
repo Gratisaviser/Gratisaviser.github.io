@@ -1,0 +1,52 @@
+class AidArrow extends HTMLElement {
+  render() {
+    if (this.rendered) {
+      return this;
+    }
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 14 10');
+    const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    arrow.setAttribute('d', 'M2,2 L7,7 L12,2');
+    svg.appendChild(arrow);
+    const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+    animate.setAttribute('attributeType', 'XML');
+    animate.setAttribute('attributeName', 'd');
+    animate.setAttribute('dur', '0.15');
+    animate.setAttribute('begin', 'click');
+    animate.setAttribute('repeatCount', 1);
+    animate.setAttribute('fill', 'freeze');
+    this.animateValues = ['M2,2 L7,7 L12,2;', 'M2,7 L7,2 L12,7;'];
+    animate.setAttribute('from', this.animateValues[1]);
+    animate.setAttribute('to', this.animateValues[0]);
+    arrow.appendChild(animate);
+    this.animate = animate;
+    this.appendChild(svg);
+    this.rendered = true;
+    return this;
+  }
+  toggle() {
+    if ('beginElement' in this.animate) {
+      this.animate.beginElement();
+      this.animateValues.push(this.animateValues.shift());
+      this.animate.setAttribute('from', this.animateValues[1]);
+      this.animate.setAttribute('to', this.animateValues[0]);
+    }
+  }
+  connectedCallback() {
+    if (!this.rendered) {
+      this.render();
+    }
+  }
+  attachedCallback() {
+    if (!this.rendered) {
+      this.render();
+    }
+  }
+}
+if (customElements && customElements.define) {
+  customElements.define('amedia-user-arrow', AidArrow);
+} else {
+  document.registerElement('amedia-user-arrow', {
+    prototype: AidArrow.prototype
+  });
+}

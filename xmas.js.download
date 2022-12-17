@@ -1,0 +1,342 @@
+(function () {
+  'use strict';
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    Object.defineProperty(Constructor, "prototype", {
+      writable: false
+    });
+    return Constructor;
+  }
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        writable: true,
+        configurable: true
+      }
+    });
+    Object.defineProperty(subClass, "prototype", {
+      writable: false
+    });
+    if (superClass) _setPrototypeOf(subClass, superClass);
+  }
+  function _getPrototypeOf(o) {
+    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+      return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _getPrototypeOf(o);
+  }
+  function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+    return _setPrototypeOf(o, p);
+  }
+  function _isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+    try {
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+  function _construct(Parent, args, Class) {
+    if (_isNativeReflectConstruct()) {
+      _construct = Reflect.construct.bind();
+    } else {
+      _construct = function _construct(Parent, args, Class) {
+        var a = [null];
+        a.push.apply(a, args);
+        var Constructor = Function.bind.apply(Parent, a);
+        var instance = new Constructor();
+        if (Class) _setPrototypeOf(instance, Class.prototype);
+        return instance;
+      };
+    }
+    return _construct.apply(null, arguments);
+  }
+  function _isNativeFunction(fn) {
+    return Function.toString.call(fn).indexOf("[native code]") !== -1;
+  }
+  function _wrapNativeSuper(Class) {
+    var _cache = typeof Map === "function" ? new Map() : undefined;
+    _wrapNativeSuper = function _wrapNativeSuper(Class) {
+      if (Class === null || !_isNativeFunction(Class)) return Class;
+      if (typeof Class !== "function") {
+        throw new TypeError("Super expression must either be null or a function");
+      }
+      if (typeof _cache !== "undefined") {
+        if (_cache.has(Class)) return _cache.get(Class);
+        _cache.set(Class, Wrapper);
+      }
+      function Wrapper() {
+        return _construct(Class, arguments, _getPrototypeOf(this).constructor);
+      }
+      Wrapper.prototype = Object.create(Class.prototype, {
+        constructor: {
+          value: Wrapper,
+          enumerable: false,
+          writable: true,
+          configurable: true
+        }
+      });
+      return _setPrototypeOf(Wrapper, Class);
+    };
+    return _wrapNativeSuper(Class);
+  }
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return self;
+  }
+  function _possibleConstructorReturn(self, call) {
+    if (call && (typeof call === "object" || typeof call === "function")) {
+      return call;
+    } else if (call !== void 0) {
+      throw new TypeError("Derived constructors may only return object or undefined");
+    }
+    return _assertThisInitialized(self);
+  }
+  function _createSuper(Derived) {
+    var hasNativeReflectConstruct = _isNativeReflectConstruct();
+    return function _createSuperInternal() {
+      var Super = _getPrototypeOf(Derived),
+        result;
+      if (hasNativeReflectConstruct) {
+        var NewTarget = _getPrototypeOf(this).constructor;
+        result = Reflect.construct(Super, arguments, NewTarget);
+      } else {
+        result = Super.apply(this, arguments);
+      }
+      return _possibleConstructorReturn(this, result);
+    };
+  }
+
+  var tag = document.createElement.bind(document);
+  function random(min, max) {
+    min *= 100;
+    max *= 100;
+    return (Math.random() * (max - min + 1) + min) / 100;
+  }
+  var rotation = Math.PI / 2 * 3;
+  var minScale = 0.3;
+  var maxScale = 1;
+  var increment = 0.06;
+  var spikes = 8;
+  var step = Math.PI / spikes;
+  var commonStar;
+  // 18 is dividible by both 3 and 2, and we avoid floating point in
+  // createStarDrawing
+  var starSize = 18;
+  function createStarDrawing(color, ratio) {
+    var canvas = document.createElement('canvas');
+    canvas.width = starSize * ratio;
+    canvas.height = starSize * ratio;
+    var ctx = canvas.getContext('2d');
+    ctx.scale(ratio, ratio);
+    var outerRadius = starSize / 2;
+    var innerRadius = starSize / (starSize / 2);
+    var mediumRadius = starSize / 3 - 1;
+    var cx = starSize / 2;
+    var cy = starSize / 2;
+    var x = cx;
+    var y = cy;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - outerRadius);
+    var count = spikes;
+    while (count > 0) {
+      x = cx + Math.cos(rotation) * outerRadius;
+      y = cy + Math.sin(rotation) * outerRadius;
+      ctx.lineTo(x, y);
+      rotation += step;
+      x = cx + Math.cos(rotation) * innerRadius;
+      y = cy + Math.sin(rotation) * innerRadius;
+      ctx.lineTo(x, y);
+      rotation += step;
+      x = cx + Math.cos(rotation) * mediumRadius;
+      y = cy + Math.sin(rotation) * mediumRadius;
+      ctx.lineTo(x, y);
+      rotation += step;
+      x = cx + Math.cos(rotation) * innerRadius;
+      y = cy + Math.sin(rotation) * innerRadius;
+      ctx.lineTo(x, y);
+      rotation += step;
+      count -= 1;
+    }
+    ctx.lineTo(cx, cy - outerRadius);
+    ctx.fill();
+    ctx.closePath();
+    return canvas;
+  }
+  function createStar(context, color, ratio, position) {
+    if (commonStar === undefined) {
+      commonStar = createStarDrawing(color, ratio);
+    }
+    return {
+      x: position.x,
+      y: position.y,
+      ctx: context,
+      color: color,
+      pulseDir: 1,
+      starScale: random(minScale, maxScale),
+      ratio: ratio
+
+      // this.draw(this.starScale);
+    };
+  }
+
+  function drawStar(star, scale) {
+    var ctx = star.ctx;
+    ctx.globalAlpha = scale;
+    ctx.setTransform(star.ratio, 0, 0, star.ratio, 0, 0);
+    ctx.translate(star.x, star.y);
+    var size = starSize * scale;
+    ctx.drawImage(commonStar, -(size / 2), -(size / 2), size, size);
+    ctx.globalAlpha = 1;
+  }
+  function pulsateStar(star) {
+    if (star.pulseDir === 1) {
+      star.starScale -= increment;
+      if (star.starScale < minScale) {
+        star.pulseDir = -1;
+      }
+    } else {
+      star.starScale += increment;
+      if (star.starScale > maxScale) {
+        star.pulseDir = 1;
+      }
+    }
+    return star.starScale;
+  }
+  function reDrawStar(star) {
+    drawStar(star, pulsateStar(star));
+  }
+  var limit = 25;
+  var canvas = tag('canvas');
+  var ctx = canvas.getContext('2d');
+  var stars = [];
+  var color = '#fff';
+  var frame = 0;
+  var startOfAnimation = Date.now();
+  var isReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function animate() {
+    if (isReduced.matches) {
+      return;
+    }
+    if (Date.now() - startOfAnimation > 5000) {
+      return;
+    }
+    requestAnimationFrame(animate);
+
+    // Only draw every 4th frame, to increase performance.
+    frame = (frame + 1) % 4;
+    if (frame !== 0) {
+      return;
+    }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var i = limit;
+    while (i > 0) {
+      i -= 1;
+      reDrawStar(stars[i]);
+    }
+  }
+  var AmediaXmas = /*#__PURE__*/function (_HTMLElement) {
+    _inherits(AmediaXmas, _HTMLElement);
+    var _super = _createSuper(AmediaXmas);
+    function AmediaXmas() {
+      _classCallCheck(this, AmediaXmas);
+      return _super.apply(this, arguments);
+    }
+    _createClass(AmediaXmas, [{
+      key: "init",
+      value: function init() {
+        // Is it Christmas?
+        if (new Date().getMonth() !== 11) {
+          return;
+        }
+        var width = this.offsetWidth;
+        var height = this.offsetHeight;
+
+        // use devicePixelRatio for hidpi devices
+        var ratio = window.devicePixelRatio || 1;
+        color = this.getAttribute('star-color');
+
+        // increase canvas size for hidpi devices
+        canvas.width = width * ratio;
+        canvas.height = height * ratio;
+
+        // scale canvas to original size with css
+        canvas.style.width = "".concat(width, "px");
+        canvas.style.height = "".concat(height, "px");
+
+        // increase context size for hidpi devices
+        ctx.scale(ratio, ratio);
+        this.appendChild(canvas);
+        var i = limit;
+        while (i > 0) {
+          i -= 1;
+          stars.push(createStar(ctx, color, ratio, {
+            x: random(10, width - 10),
+            y: random(10, height - 10)
+          }));
+        }
+        window.addEventListener('load', function () {
+          return animate();
+        });
+      }
+    }, {
+      key: "connectedCallback",
+      value: function connectedCallback() {
+        // TODO move this to constructor when transpiler is updated
+        // to support classes extending HTML element
+        if (!this.created) {
+          this.init();
+        }
+        this.created = true;
+      }
+    }, {
+      key: "attachedCallback",
+      value: function attachedCallback() {
+        if (!this.created) {
+          this.init();
+        }
+        this.created = true;
+      }
+    }]);
+    return AmediaXmas;
+  }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
+  if (customElements && customElements.define) {
+    customElements.define('foxfield-xmas', AmediaXmas);
+  } else {
+    document.registerElement('foxfield-xmas', {
+      prototype: AmediaXmas.prototype
+    });
+  }
+
+})();

@@ -1,0 +1,219 @@
+amedia-menutrigger {
+  display: block !important;
+  /* always show the menu button*/
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  max-width: 110px;
+  border: none;
+}
+
+amedia-menutrigger button {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  color: #292827;
+}
+
+/* Don't show outline on mouse click */
+amedia-menutrigger button:not(:focus-visible) {
+  outline: none;
+}
+
+amedia-menutrigger button:focus {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+amedia-menutrigger svg {
+  display: block;
+  margin: 0 auto;
+  width: 36px;
+  height: 30px;
+  position: relative;
+  left: 5px;
+  transition: transform 250ms var(--easing);
+}
+
+amedia-menutrigger:focus svg,
+amedia-menutrigger:hover svg {
+  transform: scale(1.1);
+}
+
+amedia-menutrigger path {
+  fill: none;
+  stroke: var(--swatchMono-black);
+  stroke-linecap: square;
+  stroke-width: 6px;
+  stroke-dasharray: 36px 128px;
+  stroke-dashoffset: 0;
+  transition: transform 250ms ease-in-out 0ms,
+    stroke-dashoffset 250ms ease-in-out 150ms;
+}
+
+amedia-menutrigger.negative path {
+  stroke: var(--swatchMono-white);
+}
+
+amedia-menutrigger.negative.light path {
+  stroke: #292827;
+}
+
+amedia-menutrigger.pushed path:nth-child(2) {
+  transform: translateX(200%);
+}
+
+amedia-menutrigger.pushed path:nth-child(1),
+amedia-menutrigger.pushed path:nth-child(3) {
+  stroke-dashoffset: -91px;
+}
+
+amedia-menutrigger button:hover,
+amedia-menutrigger.pushed button {
+  background: transparent;
+}
+
+amedia-menutrigger.negative .button-text {
+  color: #fff;
+}
+
+amedia-menutrigger.negative.light .button-text {
+  color: #292827;
+}
+
+amedia-menutrigger.negative button:hover,
+amedia-menutrigger.negative.pushed button {
+  background: transparent;
+  color: #fff;
+}
+
+amedia-menutrigger.negative.light button:hover,
+amedia-menutrigger.negative.light.pushed button {
+  background: transparent;
+  color: #292827;
+}
+
+@media screen and (min-width: 1024px) {
+  amedia-menutrigger {
+    height: 100%;
+    position: static;
+    text-transform: none;
+    text-align: right;
+    height: 42px;
+    display: flex !important;
+    align-items: center;
+    line-height: 1;
+  }
+
+  amedia-menutrigger button {
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+    text-transform: capitalize;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+
+  amedia-menutrigger.negative.light button {
+    border-color: #ccc;
+  }
+
+  amedia-menutrigger.light button {
+    color: #292827;
+    border-color: #292827;
+  }
+
+  amedia-menutrigger.negative .button-text {
+    color: #292827;
+  }
+
+  amedia-menutrigger svg {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    margin-left: 7px;
+    margin-top: 0px;
+    width: 16px;
+  }
+
+  amedia-menutrigger path {
+    stroke: var(--swatchMono-white);
+  }
+  amedia-menutrigger.light path,
+  amedia-menutrigger.negative path {
+    stroke: var(--swatchMono-black);
+  }
+
+  amedia-menutrigger button:hover,
+  amedia-menutrigger.negative button:hover,
+  amedia-menutrigger.pushed button,
+  amedia-menutrigger.negative.pushed button {
+    color: #292827;
+    background: #f6f5f1;
+  }
+
+  amedia-menutrigger:hover path,
+  amedia-menutrigger.negative:hover path,
+  amedia-menutrigger.pushed path,
+  amedia-menutrigger.negative.pushed {
+    stroke: var(--swatchMono-black);
+  }
+}
+
+/* BRAVO THEME: Adjust the menu icon, and hide the button text */
+amedia-menutrigger.bravo-menu {
+  top: 18px;
+}
+/* Temporarily overwrite value for budstikka.no and Lokal-avisa.no due to size change in logo (header.css) */
+.budsti amedia-menutrigger.bravo-menu {
+  top: 11px;
+}
+.lokala amedia-menutrigger.bravo-menu {
+  top: 14px;
+}
+
+amedia-menutrigger.bravo-menu .button-text {
+  display: none;
+}
+
+amedia-menutrigger.bravo-menu svg {
+  width: 30px;
+}
+
+amedia-menutrigger.bravo-menu path {
+  stroke-width: 3px;
+}
+
+@media screen and (max-width: 1023px) {
+  amedia-menutrigger.bravo-menu button:focus {
+    background: transparent;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  amedia-menutrigger.bravo-menu button {
+    padding-inline: 15px;
+  }
+
+  amedia-menutrigger.bravo-menu svg {
+    left: 0;
+    top: -1px;
+  }
+}
+
+/* Turn off animation if user dont want it */
+@media (prefers-reduced-motion: reduce) {
+  amedia-menutrigger.bravo-menu svg,
+  amedia-menutrigger.bravo-menu path {
+    transition-duration: 1ms !important;
+  }
+}

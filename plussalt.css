@@ -1,0 +1,49 @@
+.plussaltmenu .content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plussaltmenu .content svg {
+  margin-top: 3px;
+}
+
+.plussaltmenu .plussalt-logo {
+  width: 35px;
+}
+
+.plussaltmenu {
+  font-family: 'Open Sans', sans-serif;
+  display: block;
+}
+
+.plussaltmenu.hide {
+  display: none;
+}
+
+.plussaltmenu a {
+  color: #292827;
+  cursor: pointer;
+  display: inline;
+  font-size: 18px;
+  margin-top: 6px;
+  text-decoration: none;
+}
+
+.plussaltmenu a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 1024px) {
+  .plussaltmenu {
+    background: #e7e6e2;
+    color: #292827;
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .plussaltmenu {
+    margin-top: 30px;
+  }
+}

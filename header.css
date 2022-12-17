@@ -1,0 +1,194 @@
+.amedia-header {
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
+  /* Avoid header getting under the aid overlay (has z-index 999) */
+  z-index: 1000;
+  background: #fff;
+}
+
+.amedia-header h2,
+.amedia-header h3 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* These are added in castor, but we should render the same with and without
+them. So we'll add them here too */
+
+.amedia-header * {
+  box-sizing: border-box;
+}
+
+.amedia-header a {
+  color: inherit;
+}
+
+.amedia-header button,
+.amedia-header input {
+  font: inherit;
+}
+
+.amedia-header button {
+  cursor: pointer;
+}
+
+/* End of styles copied from castor */
+
+amedia-branding {
+  display: block;
+}
+
+amedia-branding.negative {
+  background-color: var(--newspaper-color, #292827);
+  color: var(--newspaper-color-inverted, #fff);
+}
+
+amedia-branding .amedia-branding-inner {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  padding: 6px 12px;
+  position: relative;
+  width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  amedia-branding bazaar-ad[position='challengetop'] {
+    margin-right: 0 !important;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  amedia-branding challenge-ad[position='challengetop'] {
+    margin-right: 0 !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  amedia-branding .amedia-branding-inner {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 18px 20px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  amedia-branding bazaar-ad[position='challengetop'] {
+    margin-right: 170px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  amedia-branding challenge-ad[position='challengetop'] {
+    margin-right: 170px;
+  }
+}
+
+amedia-branding .logo {
+  height: 48px;
+  width: 75%;
+}
+
+amedia-branding .logo img {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  amedia-branding .logo {
+    height: 80px;
+    width: 50%;
+  }
+}
+
+/* Temporarily overwrite size of budstikka.no and Lokalavisa.no logo */
+.budsti amedia-branding .logo {
+  height: 40px;
+  width: 75%;
+}
+.budsti amedia-branding .logo img {
+  width: 50%;
+  height: 100%;
+}
+@media screen and (min-width: 1024px) {
+  .budsti amedia-branding .logo {
+    height: 40px;
+    width: 50%;
+  }
+}
+
+.lokala amedia-branding .logo {
+  height: 50px;
+  width: 75%;
+}
+.lokala amedia-branding .logo img {
+  width: 55%;
+  height: 100%;
+}
+@media screen and (min-width: 1024px) {
+  .lokala amedia-branding .logo {
+    width: 50%;
+  }
+}
+/* END overwrite */
+
+amedia-branding .logo object {
+  width: 100%;
+  height: inherit;
+  border: none;
+  pointer-events: none;
+}
+
+.menubar-wrapper {
+  background-color: var(--newspaper-color, #292827);
+  color: var(--newspaper-color-inverted, #fff);
+}
+
+.amedia-header.negative .menubar-wrapper {
+  background: #e7e6e2;
+  color: #292827;
+}
+
+.amedia-header.negative .menubar-wrapper a {
+  color: #292827;
+}
+
+amedia-include[aria-hidden='true'] .amedia-menu {
+  display: none !important;
+}
+
+amedia-include[aria-hidden='false'] .amedia-menu {
+  display: block !important;
+}
+
+@media screen and (min-width: 1024px) {
+  amedia-include[aria-hidden='false'] .amedia-menu {
+    display: flex !important;
+  }
+}
+
+/* Tempfix pushapp */
+.amedia-menu[aria-hidden='true'] {
+  display: none !important;
+}
+
+.amedia-menu[aria-hidden='false'] {
+  display: block !important;
+}
+
+@media screen and (min-width: 1024px) {
+  .amedia-menu[aria-hidden='false'] {
+    display: flex !important;
+  }
+}
+
+.sportspill-menu-container {
+  max-width: 980px;
+  margin: 20px auto 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  .sportspill-menu-container {
+    margin: 10px 10px 20px;
+  }
+}

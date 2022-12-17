@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!-- saved from url=(0172)https://www.tk.no/api/amediacomments/frontend/nacomment/comments-frontend/comments/?v=1.0#/comment/?url=%2F%2Fwww.tk.no%2F5-51-1267284&scope=www.tk.no&publication=www.tk.no -->
+<html lang="en" ng-app="nacomments" class="ng-scope"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://www.tk.no/api/amediacomments/frontend/nacomment/comments-frontend/comments/stylesheets/screen.css?v.1.8" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.21/moment-timezone-with-data.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-cookies.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/nb.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0/angular-moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://www.tk.no/api/amediacomments/frontend/nacomment/comments-frontend/global/js/na-module.js?v.0.2"></script>
+    <script src="https://www.tk.no/api/amediacomments/public/v1/config"></script>
+<style>undefined</style></head>
+
+<body ng-class="{&#39;hidden&#39;: hidden}">
+    <!-- ngView:  --><div id="nacomments-content-wrapper" ng-view="" class="ng-scope"><!-- WELCOME TEXT -->
+
+<!-- ngIf: publicationMeta.welcomeText --><p ng-if="publicationMeta.welcomeText" class="welcome-text ng-binding ng-scope" ng-bind-html="publicationMeta.welcomeText">Velkommen til kommentarfeltet vårt. Her bidrar du til en god debatt ved å være saklig, høflig og konstruktiv. Du MÅ skrive med fullt navn. Vi anbefaler at du <a href="https://www.tk.no/incoming/5-51-1245864.html" target="_parent">leser debattreglene våre</a> før du kommenterer!</p><!-- end ngIf: publicationMeta.welcomeText -->
+
+<!-- START COMMENT BOX -->
+
+<div class="pad-content ng-scope" ng-class="{&#39;overflow&#39;: !settingsAndToggles.showOverFlow}">
+
+    <!-- sorting options -->
+    <!-- ngInclude: 'views/sorting-options.html' --><div ng-include="&#39;views/sorting-options.html&#39;" class="ng-scope"><div class="sorting-actions ng-scope">
+    <button aria-label="Sorter kommentarer fra eldste til nyeste" class="sorting-actions-button selected" ng-click="setSortOrderType(&#39;creation_date&#39;)" ng-class="{&#39;selected&#39;: settingsAndToggles.sortOrderType == &#39;creation_date&#39;}">Eldste</button>
+    <button aria-label="Sorter kommentarer fra nyeste til eldste" class="sorting-actions-button" ng-click="setSortOrderType(&#39;-creation_date&#39;)" ng-class="{&#39;selected&#39;: settingsAndToggles.sortOrderType == &#39;-creation_date&#39;}">Nyeste</button>
+    <button aria-label="Sorter kommentarer på popularitet" class="sorting-actions-button" ng-click="setSortOrderType(&#39;-like_count&#39;)" ng-class="{&#39;selected&#39;: settingsAndToggles.sortOrderType == &#39;-like_count&#39;}">Populære</button>
+    <!--<button class="sorting-actions-button unselectable">{{commentsCount}} kommentarer</button>-->
+</div></div>
+    <!-- end sorting options -->
+
+    <!-- ngInclude: 'views/top-level-comment-box.html' --><div ng-include="&#39;views/top-level-comment-box.html&#39;" class="ng-scope"><!-- ngIf: nacommentsOpen --><div ng-if="nacommentsOpen" class="ng-scope">
+    <div class="nacomments-comment-container">
+        <div class="nacomments-user-image-container" ng-click="openProfileDialog()">
+            <div class="nacomments-message-image" ng-style="{&#39;background-image&#39;: &#39;url(&#39; + (credentials.profile_image_url ? credentials.profile_image_url : &#39;img/user-avatar.jpg&#39;) + &#39;)&#39;}" style="background-image: url(&quot;img/user-avatar.jpg&quot;);"></div>
+        </div>
+        <div class="nacomments-input-container">
+            <contenteditable aria-label="Skriv kommentar" class="nacomments-input form-control ng-pristine ng-untouched ng-valid ng-isolate-scope" post-message="postMessage" contenteditable="" reply="" ng-model="topComment.message"></contenteditable>
+        </div>
+        <div class="comment-actions">
+            <!-- ngIf: !publicationMeta.hiddenDebateRules --><div ng-if="!publicationMeta.hiddenDebateRules" style="float: left;padding-left: 55px;margin-top: 7.5px;font-size: 12px;text-decoration: underline;" class="ng-scope">
+                <a href="https://www.tk.no/incoming/5-51-1245864.html" target="_blank">Debattregler</a>
+            </div><!-- end ngIf: !publicationMeta.hiddenDebateRules -->
+            <!-- ngIf: credentials.isLoggedIn && !credentials.idType -->
+            <!-- ngIf: credentials.isLoggedIn && credentials.idType --><div ng-if="credentials.isLoggedIn &amp;&amp; credentials.idType" class="nacomments-user-select ng-scope">
+                <span></span>
+                <!-- ngIf: credentials.screen_name --><span ng-if="credentials.screen_name" class="ng-scope">Du skriver som: </span><!-- end ngIf: credentials.screen_name -->
+                <span class="nacomments-user-name" aria-label="Du skriver som Ola Aspen" ng-click="!topComment.anonymous &amp;&amp; openProfileDialog()"><a href="javascript:void(0)" class="ng-binding">Ola Aspen</a></span>
+                <!-- ngIf: credentials.idType == 'nauser_facebook' -->
+                <!-- ngIf: credentials.user.status == 'banned' -->
+            </div><!-- end ngIf: credentials.isLoggedIn && credentials.idType -->
+
+            <!-- ngIf: credentials.isLoggedIn && credentials.user.status != 'banned' --><button aria-label="Trykk for å sende inn kommentaren" ng-if="credentials.isLoggedIn &amp;&amp; credentials.user.status != &#39;banned&#39;" class="comment-actions-submit ng-scope" ng-click="postComment(false, topComment.message)" ng-disabled="topComment.loading || !topComment.message || (topComment.anonymous &amp;&amp; !topComment.reasonText)" ng-class="{loading: topComment.loading}" disabled="disabled">
+				<span>Kommenter</span>
+			</button><!-- end ngIf: credentials.isLoggedIn && credentials.user.status != 'banned' -->
+            <!-- ngIf: !credentials.isLoggedIn -->
+
+        </div>
+    </div>
+</div><!-- end ngIf: nacommentsOpen -->
+
+<!-- ngIf: !nacommentsOpen -->
+
+<!-- ngIf: !nacommentsOpen && !noMoreComments -->
+
+<!-- ngIf: !nacommentsOpen && noMoreComments -->
+
+<!-- ngIf: !noMoreComments && publicationMeta.restrictComments -->
+</div>
+
+    <!-- END COMMENT BOX -->
+
+
+    <div class="">
+
+        <!-- START COMMENTS -->
+
+        <!-- list users comments independently top level -->
+
+        <!-- ngInclude: 'views/top-level-user-comments.html' --><div ng-include="&#39;views/top-level-user-comments.html&#39;" class="ng-scope"><!-- ngRepeat: message in myReplies | orderBy: '-created_date' --></div>
+
+        <!-- end list user comments top level -->
+
+
+        <!-- ngRepeat: message in messages --><!-- ngIf: message.message --><div id="639a1ba61503b80001156408" ng-if="message.message" ng-class="{&#39;na-comment-offtopic&#39;: message.offtopic, &#39;nacomments-message-container&#39;: shouldDisplayMessage(publicationMeta, message)}" ng-repeat="message in messages" on-finish-render="ngRepeatFinished" class="ng-scope nacomments-message-container">
+            
+			<!-- ngIf: shouldDisplayMessage(publicationMeta, message) --><div ng-if="shouldDisplayMessage(publicationMeta, message)" class="ng-scope">
+				<div class="nacomments-user-image-container" ng-class="{&#39;no-click&#39;: message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)}" ng-click="!(message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)) &amp;&amp; openProfileDialog(message.userId)">
+	                <!-- ngIf: message.profileImageUrl && !message.deleted --><div ng-if="message.profileImageUrl &amp;&amp; !message.deleted" class="nacomments-message-image ng-scope" ng-style="{&#39;background-image&#39;:&#39;url(&#39; + message.profileImageUrl + &#39;)&#39;}" style="background-image: url(&quot;img/user-avatar.jpg&quot;);"></div><!-- end ngIf: message.profileImageUrl && !message.deleted -->
+	                <!-- ngIf: !message.profileImageUrl || message.userStatus == 'banned' || message.deleted -->
+	            </div>
+			</div><!-- end ngIf: shouldDisplayMessage(publicationMeta, message) -->
+
+            <div class="nacomments-message-content-container">
+
+				<!-- ngIf: shouldDisplayMessage(publicationMeta, message) --><div ng-if="shouldDisplayMessage(publicationMeta, message)" class="ng-scope">
+					<!-- ngIf: !message.deleted --><div class="nacomments-message-header ng-scope" ng-if="!message.deleted">
+	                    <span class="profile-name ng-binding gray-link" ng-class="{&#39;gray-link&#39;: message.profileBadgeObj.value==&#39;UNVERIFIED&#39;, &#39;no-click&#39;: message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.userId.indexOf(&#39;archived&#39;)==0)}" ng-click="!(message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.userId.indexOf(&#39;archived&#39;)==0)) &amp;&amp; openProfileDialog(message.userId)">Torleif Smedsvik 
+	                        <i class="material-icons profile-state ng-binding" ng-class="message.profileBadgeObj.class" data-tooltip="Navnet er ikke verifisert">error</i>
+	                    </span>
+	
+	                    <time class="nacomments-message-time" am-time-ago="message.creation_date" datetime="2022-12-14T18:53:26.259Z">for 2 dager siden</time>
+	                    <!-- ngIf: message.edited && !message.editedByAdmin --><span class="nacomments-message-time ng-scope" ng-if="message.edited &amp;&amp; !message.editedByAdmin">(redigert)</span><!-- end ngIf: message.edited && !message.editedByAdmin -->
+						<!-- ngIf: message.edited && message.editedByAdmin -->
+	                    <!-- ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) --><button class="nacomments-message-like ng-scope" ng-disabled="message.disableLikeBtn" ng-click="toggleLike(message)" ng-if="!stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)">
+	                        <!-- ngIf: message.user_likes.indexOf(credentials.user.user_id) >= 0 -->
+	                        <!-- ngIf: message.user_likes.indexOf(credentials.user.user_id) < 0 --><i ng-if="message.user_likes.indexOf(credentials.user.user_id) &lt; 0" class="material-icons downvote ng-scope" aria-label="Gi tommel opp">thumb_up</i><!-- end ngIf: message.user_likes.indexOf(credentials.user.user_id) < 0 -->
+	                        <!-- ngIf: message.user_likes.length > 0 --><span ng-if="message.user_likes.length &gt; 0" class="ng-binding ng-scope">(5)</span><!-- end ngIf: message.user_likes.length > 0 -->
+	                    </button><!-- end ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) -->
+	                </div><!-- end ngIf: !message.deleted -->
+	                <!-- ngIf: !message.deleted && !message.editCommentToggle --><div ng-if="!message.deleted &amp;&amp; !message.editCommentToggle" class="nacomments-message-content ng-binding ng-scope" ng-bind-html="message.message | parseUrlFilter:&#39;_blank&#39;:&#39;&#39;">En skal komme på det og ?! 
+<div>
+ Det må jo bli etter ansattes eget forgodtbefinnende å bestemme seg for å ikke selge øl til en godt voksen mann.
+</div>
+<div>
+ Men hva så om han viste bevis på at han var over 50, opphører da mistanken om langing ?&nbsp;
+</div>
+<div>
+ Selger er jo like langt, og når da butikksjefen støtter sin ansatt, så er jo spørsmålet, i hva da ? Opphører mistanken om langing bare man beviser at man er gammel nok ?
+</div>
+<div>
+ Hvilket ansvar står så da butikken igjen med ?
+</div>
+<div>
+ Dette bør butikksjefen gruble litt på, og det viktigste for denne er jo å være skyld og ansvarsfri, ikke bedrive tulliball for å sikre seg .
+</div></div><!-- end ngIf: !message.deleted && !message.editCommentToggle -->
+	                <!-- ngIf: message.deleted && !message.editCommentToggle -->
+	                <!-- ngIf: message.editCommentToggle -->
+	                <!-- ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) --><div class="nacomments-message-bottom ng-scope" ng-if="!stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)">
+	                    <!-- ngIf: !reply.deleted && !reply.editedByAdmin && (message.userId == credentials.user.user_id || adminOfThisScope && credentials.user.is_admin) -->
+	                    <!-- ngIf: nacommentsOpen --><button class="nacomments-message-reply ng-scope" ng-if="nacommentsOpen" ng-click="message.replyBoxToggle = !message.replyBoxToggle;">
+							Svar&nbsp;
+							<!-- ngIf: message.replyCount > 0 -->
+						</button><!-- end ngIf: nacommentsOpen -->
+	                    <!-- ngIf: message.userId == credentials.user.user_id -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin && !message.offtopic -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin && !message.promoted -->
+	                    <!-- ngIf: credentials.isLoggedIn && (!message.user_flags || (!message.reported && message.user_flags.indexOf(credentials.user.user_id) < 0)) --><button ng-if="credentials.isLoggedIn &amp;&amp; (!message.user_flags || (!message.reported &amp;&amp; message.user_flags.indexOf(credentials.user.user_id) &lt; 0))" class="nacomments-message-reply ng-scope" ng-click="toggleReportComment(message, $event)">
+							Rapporter
+						</button><!-- end ngIf: credentials.isLoggedIn && (!message.user_flags || (!message.reported && message.user_flags.indexOf(credentials.user.user_id) < 0)) -->
+	                    <!-- ngIf: message.user_flags.indexOf(credentials.user.user_id) >= 0 -->
+	                </div><!-- end ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) -->
+				</div><!-- end ngIf: shouldDisplayMessage(publicationMeta, message) -->
+
+                <!-- START REPLIES ************************ -->
+
+                <!-- ngIf: message.myReplies.length || message.replies.length || message.replyBoxToggle -->
+                <!-- END REPLIES -->
+
+            </div>
+
+        </div><!-- end ngIf: message.message --><!-- end ngRepeat: message in messages --><!-- ngIf: message.message --><div id="639a7ee14ce1dc0001c78b51" ng-if="message.message" ng-class="{&#39;na-comment-offtopic&#39;: message.offtopic, &#39;nacomments-message-container&#39;: shouldDisplayMessage(publicationMeta, message)}" ng-repeat="message in messages" on-finish-render="ngRepeatFinished" class="ng-scope nacomments-message-container">
+            
+			<!-- ngIf: shouldDisplayMessage(publicationMeta, message) --><div ng-if="shouldDisplayMessage(publicationMeta, message)" class="ng-scope">
+				<div class="nacomments-user-image-container" ng-class="{&#39;no-click&#39;: message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)}" ng-click="!(message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)) &amp;&amp; openProfileDialog(message.userId)">
+	                <!-- ngIf: message.profileImageUrl && !message.deleted --><div ng-if="message.profileImageUrl &amp;&amp; !message.deleted" class="nacomments-message-image ng-scope" ng-style="{&#39;background-image&#39;:&#39;url(&#39; + message.profileImageUrl + &#39;)&#39;}" style="background-image: url(&quot;img/user-avatar.jpg&quot;);"></div><!-- end ngIf: message.profileImageUrl && !message.deleted -->
+	                <!-- ngIf: !message.profileImageUrl || message.userStatus == 'banned' || message.deleted -->
+	            </div>
+			</div><!-- end ngIf: shouldDisplayMessage(publicationMeta, message) -->
+
+            <div class="nacomments-message-content-container">
+
+				<!-- ngIf: shouldDisplayMessage(publicationMeta, message) --><div ng-if="shouldDisplayMessage(publicationMeta, message)" class="ng-scope">
+					<!-- ngIf: !message.deleted --><div class="nacomments-message-header ng-scope" ng-if="!message.deleted">
+	                    <span class="profile-name ng-binding gray-link" ng-class="{&#39;gray-link&#39;: message.profileBadgeObj.value==&#39;UNVERIFIED&#39;, &#39;no-click&#39;: message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.userId.indexOf(&#39;archived&#39;)==0)}" ng-click="!(message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.userId.indexOf(&#39;archived&#39;)==0)) &amp;&amp; openProfileDialog(message.userId)">Sivert Sæterbø 
+	                        <i class="material-icons profile-state ng-binding" ng-class="message.profileBadgeObj.class" data-tooltip="Navnet er ikke verifisert">error</i>
+	                    </span>
+	
+	                    <time class="nacomments-message-time" am-time-ago="message.creation_date" datetime="2022-12-15T01:56:49.311Z">for 2 dager siden</time>
+	                    <!-- ngIf: message.edited && !message.editedByAdmin -->
+						<!-- ngIf: message.edited && message.editedByAdmin -->
+	                    <!-- ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) --><button class="nacomments-message-like ng-scope" ng-disabled="message.disableLikeBtn" ng-click="toggleLike(message)" ng-if="!stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)">
+	                        <!-- ngIf: message.user_likes.indexOf(credentials.user.user_id) >= 0 -->
+	                        <!-- ngIf: message.user_likes.indexOf(credentials.user.user_id) < 0 --><i ng-if="message.user_likes.indexOf(credentials.user.user_id) &lt; 0" class="material-icons downvote ng-scope" aria-label="Gi tommel opp">thumb_up</i><!-- end ngIf: message.user_likes.indexOf(credentials.user.user_id) < 0 -->
+	                        <!-- ngIf: message.user_likes.length > 0 --><span ng-if="message.user_likes.length &gt; 0" class="ng-binding ng-scope">(1)</span><!-- end ngIf: message.user_likes.length > 0 -->
+	                    </button><!-- end ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) -->
+	                </div><!-- end ngIf: !message.deleted -->
+	                <!-- ngIf: !message.deleted && !message.editCommentToggle --><div ng-if="!message.deleted &amp;&amp; !message.editCommentToggle" class="nacomments-message-content ng-binding ng-scope" ng-bind-html="message.message | parseUrlFilter:&#39;_blank&#39;:&#39;&#39;">Denne saken er klinkende klar. Så lenge kjøperen er gammel nok har den som i sitter i kassen plikt til å selge vedkommende 2 øl som dette tilfelle.... eller 100 øl for den del, og det kan være 100 sammen med vedkommende som er under 18 år. Misstanker holder ikke uten at man kan bevise. Synes Kiwi begynner å få mye dårlig reklame nå pga av elendig kundebehandling. Leste tidligere om en annen hendelse med Kiwi i hovedrollen.</div><!-- end ngIf: !message.deleted && !message.editCommentToggle -->
+	                <!-- ngIf: message.deleted && !message.editCommentToggle -->
+	                <!-- ngIf: message.editCommentToggle -->
+	                <!-- ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) --><div class="nacomments-message-bottom ng-scope" ng-if="!stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)">
+	                    <!-- ngIf: !reply.deleted && !reply.editedByAdmin && (message.userId == credentials.user.user_id || adminOfThisScope && credentials.user.is_admin) -->
+	                    <!-- ngIf: nacommentsOpen --><button class="nacomments-message-reply ng-scope" ng-if="nacommentsOpen" ng-click="message.replyBoxToggle = !message.replyBoxToggle;">
+							Svar&nbsp;
+							<!-- ngIf: message.replyCount > 0 -->
+						</button><!-- end ngIf: nacommentsOpen -->
+	                    <!-- ngIf: message.userId == credentials.user.user_id -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin && !message.offtopic -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin && !message.promoted -->
+	                    <!-- ngIf: credentials.isLoggedIn && (!message.user_flags || (!message.reported && message.user_flags.indexOf(credentials.user.user_id) < 0)) --><button ng-if="credentials.isLoggedIn &amp;&amp; (!message.user_flags || (!message.reported &amp;&amp; message.user_flags.indexOf(credentials.user.user_id) &lt; 0))" class="nacomments-message-reply ng-scope" ng-click="toggleReportComment(message, $event)">
+							Rapporter
+						</button><!-- end ngIf: credentials.isLoggedIn && (!message.user_flags || (!message.reported && message.user_flags.indexOf(credentials.user.user_id) < 0)) -->
+	                    <!-- ngIf: message.user_flags.indexOf(credentials.user.user_id) >= 0 -->
+	                </div><!-- end ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) -->
+				</div><!-- end ngIf: shouldDisplayMessage(publicationMeta, message) -->
+
+                <!-- START REPLIES ************************ -->
+
+                <!-- ngIf: message.myReplies.length || message.replies.length || message.replyBoxToggle -->
+                <!-- END REPLIES -->
+
+            </div>
+
+        </div><!-- end ngIf: message.message --><!-- end ngRepeat: message in messages --><!-- ngIf: message.message --><div id="639ab9ff1503b8000115651d" ng-if="message.message" ng-class="{&#39;na-comment-offtopic&#39;: message.offtopic, &#39;nacomments-message-container&#39;: shouldDisplayMessage(publicationMeta, message)}" ng-repeat="message in messages" on-finish-render="ngRepeatFinished" class="ng-scope nacomments-message-container">
+            
+			<!-- ngIf: shouldDisplayMessage(publicationMeta, message) --><div ng-if="shouldDisplayMessage(publicationMeta, message)" class="ng-scope">
+				<div class="nacomments-user-image-container" ng-class="{&#39;no-click&#39;: message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)}" ng-click="!(message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)) &amp;&amp; openProfileDialog(message.userId)">
+	                <!-- ngIf: message.profileImageUrl && !message.deleted --><div ng-if="message.profileImageUrl &amp;&amp; !message.deleted" class="nacomments-message-image ng-scope" ng-style="{&#39;background-image&#39;:&#39;url(&#39; + message.profileImageUrl + &#39;)&#39;}" style="background-image: url(&quot;img/user-avatar.jpg&quot;);"></div><!-- end ngIf: message.profileImageUrl && !message.deleted -->
+	                <!-- ngIf: !message.profileImageUrl || message.userStatus == 'banned' || message.deleted -->
+	            </div>
+			</div><!-- end ngIf: shouldDisplayMessage(publicationMeta, message) -->
+
+            <div class="nacomments-message-content-container">
+
+				<!-- ngIf: shouldDisplayMessage(publicationMeta, message) --><div ng-if="shouldDisplayMessage(publicationMeta, message)" class="ng-scope">
+					<!-- ngIf: !message.deleted --><div class="nacomments-message-header ng-scope" ng-if="!message.deleted">
+	                    <span class="profile-name ng-binding gray-link" ng-class="{&#39;gray-link&#39;: message.profileBadgeObj.value==&#39;UNVERIFIED&#39;, &#39;no-click&#39;: message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.userId.indexOf(&#39;archived&#39;)==0)}" ng-click="!(message.userId != credentials.user.user_id &amp;&amp; stopShowingUnwantedUsersInfo(message.userStatus, message.userId.indexOf(&#39;archived&#39;)==0)) &amp;&amp; openProfileDialog(message.userId)">Fjærli Ole 
+	                        <i class="material-icons profile-state ng-binding" ng-class="message.profileBadgeObj.class" data-tooltip="Navnet er ikke verifisert">error</i>
+	                    </span>
+	
+	                    <time class="nacomments-message-time" am-time-ago="message.creation_date" datetime="2022-12-15T06:09:03.699Z">for 2 dager siden</time>
+	                    <!-- ngIf: message.edited && !message.editedByAdmin -->
+						<!-- ngIf: message.edited && message.editedByAdmin -->
+	                    <!-- ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) --><button class="nacomments-message-like ng-scope" ng-disabled="message.disableLikeBtn" ng-click="toggleLike(message)" ng-if="!stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)">
+	                        <!-- ngIf: message.user_likes.indexOf(credentials.user.user_id) >= 0 -->
+	                        <!-- ngIf: message.user_likes.indexOf(credentials.user.user_id) < 0 --><i ng-if="message.user_likes.indexOf(credentials.user.user_id) &lt; 0" class="material-icons downvote ng-scope" aria-label="Gi tommel opp">thumb_up</i><!-- end ngIf: message.user_likes.indexOf(credentials.user.user_id) < 0 -->
+	                        <!-- ngIf: message.user_likes.length > 0 -->
+	                    </button><!-- end ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) -->
+	                </div><!-- end ngIf: !message.deleted -->
+	                <!-- ngIf: !message.deleted && !message.editCommentToggle --><div ng-if="!message.deleted &amp;&amp; !message.editCommentToggle" class="nacomments-message-content ng-binding ng-scope" ng-bind-html="message.message | parseUrlFilter:&#39;_blank&#39;:&#39;&#39;">dæven skulle vårte æn stor snøskavel frammom døra på kiwi her i byn ja ha dæm nækta mæ det</div><!-- end ngIf: !message.deleted && !message.editCommentToggle -->
+	                <!-- ngIf: message.deleted && !message.editCommentToggle -->
+	                <!-- ngIf: message.editCommentToggle -->
+	                <!-- ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) --><div class="nacomments-message-bottom ng-scope" ng-if="!stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf(&#39;archived&#39;)==0)">
+	                    <!-- ngIf: !reply.deleted && !reply.editedByAdmin && (message.userId == credentials.user.user_id || adminOfThisScope && credentials.user.is_admin) -->
+	                    <!-- ngIf: nacommentsOpen --><button class="nacomments-message-reply ng-scope" ng-if="nacommentsOpen" ng-click="message.replyBoxToggle = !message.replyBoxToggle;">
+							Svar&nbsp;
+							<!-- ngIf: message.replyCount > 0 -->
+						</button><!-- end ngIf: nacommentsOpen -->
+	                    <!-- ngIf: message.userId == credentials.user.user_id -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin && !message.offtopic -->
+	                    <!-- ngIf: adminOfThisScope && credentials.user.is_admin && !message.promoted -->
+	                    <!-- ngIf: credentials.isLoggedIn && (!message.user_flags || (!message.reported && message.user_flags.indexOf(credentials.user.user_id) < 0)) --><button ng-if="credentials.isLoggedIn &amp;&amp; (!message.user_flags || (!message.reported &amp;&amp; message.user_flags.indexOf(credentials.user.user_id) &lt; 0))" class="nacomments-message-reply ng-scope" ng-click="toggleReportComment(message, $event)">
+							Rapporter
+						</button><!-- end ngIf: credentials.isLoggedIn && (!message.user_flags || (!message.reported && message.user_flags.indexOf(credentials.user.user_id) < 0)) -->
+	                    <!-- ngIf: message.user_flags.indexOf(credentials.user.user_id) >= 0 -->
+	                </div><!-- end ngIf: !stopShowingUnwantedUsersInfo(message.userStatus, message.deleted || message.userId.indexOf('archived')==0) -->
+				</div><!-- end ngIf: shouldDisplayMessage(publicationMeta, message) -->
+
+                <!-- START REPLIES ************************ -->
+
+                <!-- ngIf: message.myReplies.length || message.replies.length || message.replyBoxToggle -->
+                <!-- END REPLIES -->
+
+            </div>
+
+        </div><!-- end ngIf: message.message --><!-- end ngRepeat: message in messages -->
+        <div id="report-dialog-wrap" ng-style="{&#39;top&#39;: reportOffset}" style="top: 0px;">
+            <div id="report-dialog" ng-show="reportedComment" class="ng-hide">
+                <h1>Rapporter kommentaren</h1>
+                <p class="dialog">Følgende kommentar vil bli rapportert til moderator</p>
+                <div id="report-dialog-comment" class="dialog ng-binding" ng-bind-html="reportedComment.message | parseUrlFilter:&#39;_blank&#39;:&#39;&#39;"></div>
+                <p class="dialog">Vi minner om at rapportering kun skal brukes om støtende innhold. Overdreven bruk kan føre til utestengelse.</p>
+                <button class="m-b-15 btn-error btn btn-block btn-sm-text" ng-click="reportComment()">Rapporter</button>
+                <button class="btn btn-block btn-link btn-sm btn-sm-text" ng-click="reportedComment = false;">Avbryt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ngIf: settingsAndToggles.showMoreButton && messages.length > 0 --></div>
+    <script src="https://www.tk.no/api/amediacomments/frontend/nacomment/comments-frontend/comments/scripts/app-and-controllers.js?v.2.3.5"></script>
+    <script>
+        function detectmob() {
+            if (navigator.userAgent.match(/Android/i) ||
+                navigator.userAgent.match(/webOS/i) ||
+                navigator.userAgent.match(/iPhone/i) ||
+                navigator.userAgent.match(/iPad/i) ||
+                navigator.userAgent.match(/iPod/i) ||
+                navigator.userAgent.match(/BlackBerry/i) ||
+                navigator.userAgent.match(/Windows Phone/i) ||
+                window.innerWidth < 686
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        if (detectmob()) {
+
+            var wrapper = document.getElementById("nacomments-content-wrapper");
+            wrapper.className = wrapper.className + " mobile-view";
+        } else {
+
+        }
+        setTimeout(function() {
+            if (detectmob()) {
+                var wrapper = document.getElementById("nacomments-content-wrapper");
+                wrapper.className = wrapper.className + " mobile-view";
+            } else {}
+        }, 5000);
+
+
+        var isMobile = detectmob();
+    </script>
+</body></html>
